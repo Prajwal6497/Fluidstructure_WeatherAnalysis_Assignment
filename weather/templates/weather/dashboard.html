@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Dashboard</title>
+</head>
+<body>
+    <h1>Weather Dashboard for {{ city }}</h1>
+
+    <h2>Trends</h2>
+    <p>Average Temperature: {{ avg_temp }}°C</p>
+    <p>Average Humidity: {{ avg_humidity }}%</p>
+
+    {% if alert %}
+    <h2 style="color:red;">Alert: Extreme weather conditions detected!</h2>
+    {% else %}
+    <h2>Weather conditions are normal.</h2>
+    {% endif %}
+</body>
+</html>

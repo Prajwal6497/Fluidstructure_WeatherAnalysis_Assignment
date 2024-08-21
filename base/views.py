@@ -20,14 +20,25 @@ def save_weather_data(city):
     humidity = data['main']['humidity']  # Humidity percentage
     wind_speed = data['wind']['speed']  # Wind speed in m/s
     
-    # Save the weather data into the database
-    weather = WeatherData(
-        city=city,
-        temperature=temperature,
-        humidity=humidity,
-        wind_speed=wind_speed
-    )
-    weather.save()
+    # Check if the city already exists in the database
+    city_exists = WeatherData.objects.filter(city=city).exists()
+
+    if not city_exists:
+        # Save the weather data into the database only if the city doesn't already exist
+        weather = WeatherData(
+            city=city,
+            temperature=temperature,
+            humidity=humidity,
+            wind_speed=wind_speed
+        )
+        weather.save()
+    else:
+        # Optionally, you can update the existing record instead of skipping
+        WeatherData.objects.filter(city=city).update(
+            temperature=temperature,
+            humidity=humidity,
+            wind_speed=wind_speed
+        )
 
 # Function to calculate Avg Temp Trend
 def calculate_temperature_trend(city):
